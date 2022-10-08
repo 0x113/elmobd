@@ -203,16 +203,19 @@ func (dev *RealDevice) Reset() error {
 	}
 
 	// Device can identified itself in first or second line
-	if !(strings.HasPrefix(dev.outputs[0], "ELM327") || (len(dev.outputs) > 1 && strings.HasPrefix(dev.outputs[1], "ELM327"))) {
-		output := dev.outputs[0]
-		if len(dev.outputs) > 1 {
-			output += " " + dev.outputs[1]
+	// TODO: Allow users to choose name
+	/*
+		if !(strings.HasPrefix(dev.outputs[0], "ELM327") || (len(dev.outputs) > 1 && strings.HasPrefix(dev.outputs[1], "ELM327"))) {
+			output := dev.outputs[0]
+			if len(dev.outputs) > 1 {
+				output += " " + dev.outputs[1]
+			}
+			err = fmt.Errorf(
+				"Device did not identify itself as ELM327: %s",
+				output,
+			)
 		}
-		err = fmt.Errorf(
-			"Device did not identify itself as ELM327: %s",
-			output,
-		)
-	}
+	*/
 out:
 	if err != nil {
 		dev.conn.Flush()
